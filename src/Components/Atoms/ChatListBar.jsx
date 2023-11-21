@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -17,16 +18,43 @@ import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import { purple } from "@mui/material/colors";
 import ChatSearch from "./ChatSearch";
 import Chats from "../Atoms/Chats";
+import Setting from "./Setting";
+import { CssBaseline } from "@mui/material";
 
 const ChatListBar = () => {
+  const [isBoxVisible, setIsBoxVisible] = useState(false);
+
+  const toggleBoxVisibility = () => {
+    setIsBoxVisible((prevValue) => !prevValue);
+  };
+
   return (
     <>
-      <Box sx={{ flexGrow: 1, backgroundColor: "#111b21" }}>
+      <CssBaseline />
+      {isBoxVisible && (
+        <Box
+          sx={{
+            position: "absolute",
+            left: "371px",
+            top: "50px",
+            backgroundColor: "#202c33",
+            padding: "10px 10px",
+          }}
+        >
+          <Setting />
+        </Box>
+      )}
+      <Box
+        sx={{
+          flexGrow: 1,
+          backgroundColor: "#111b21",
+        }}
+      >
         <AppBar
           position="static"
           sx={{
             backgroundColor: "#202c33",
-            height: "54px",
+            height: "47px",
             justifyContent: "center",
             display: "flex",
           }}
@@ -41,28 +69,28 @@ const ChatListBar = () => {
           >
             <Box
               className="profile-icon"
-              style={{
-                width: "30%",
+              sx={{
+                width: "20%",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
               }}
             >
               <AccountCircleIcon
-                style={{
-                  width: "40px",
-                  height: "40px",
+                sx={{
+                  width: "37px",
+                  height: "37px",
                 }}
               />
             </Box>
             <Box
-              style={{
+              sx={{
                 display: "flex",
                 justifyContent: "space-around",
                 // backgroundColor: "pink",
                 width: "100%",
                 height: "100%",
-                padding: "23px 20px",
+                padding: "23px 10px",
                 justifyContent: "end",
               }}
             >
@@ -73,6 +101,7 @@ const ChatListBar = () => {
                 sx={{ margin: "0 10px", color: "#aebac1" }}
               />
               <MoreVertRoundedIcon
+                onClick={toggleBoxVisibility}
                 sx={{ margin: "0 10px", color: "#aebac1" }}
               />
             </Box>
@@ -91,8 +120,35 @@ const ChatListBar = () => {
             justifyContent: "center",
             alignItems: "center",
             flexDirection: "column",
+            maxHeight: "86vh",
+            overflowY: "scroll",
+            scrollbarWidth: "thin",
+            scrollbarColor: "#bdbdbd #f5f5f5",
+            "&:hover": {
+              opacity: 1,
+            },
+            "&::-webkit-scrollbar": {
+              width: "3px",
+            },
+            "&::-webkit-scrollbar-thumb": {
+              backgroundColor: "#aebac1",
+            },
+            "&::-webkit-scrollbar-thumb:hover": {
+              backgroundColor: "#aebac1",
+            },
+            "&::-webkit-scrollbar-track": {
+              backgroundColor: "#202c33",
+            },
           }}
         >
+          <Chats />
+          <Chats />
+          <Chats />
+          <Chats />
+          <Chats />
+          <Chats />
+          <Chats />
+          <Chats />
           <Chats />
           <Chats />
           <Chats />

@@ -1,9 +1,10 @@
-import { Box, Chip, CssBaseline, Typography } from "@mui/material";
+import { Box, CssBaseline, Typography } from "@mui/material";
 import React from "react";
 import Stack from "@mui/material/Stack";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Container } from "postcss";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { useState } from "react";
 
 const Chats = () => {
   return (
@@ -13,6 +14,11 @@ const Chats = () => {
         display: "grid",
         gridTemplateColumns: "0.8fr 5fr",
         marginTop: "10px",
+        padding: "5px 5px",
+        cursor: "pointer",
+        "&:hover": {
+          background: "rgba(255, 255, 255, 0.10)",
+        },
       }}
     >
       <CssBaseline />

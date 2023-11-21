@@ -3,6 +3,8 @@ import ChatListBar from "../Atoms/ChatListBar";
 import Chating from "../Atoms/Chating";
 import { Box } from "@mui/material";
 import ChatSearch from "../Atoms/ChatSearch";
+import { useState } from "react";
+import Chats from "../Atoms/Chats";
 const Structure = () => {
   return (
     <>
