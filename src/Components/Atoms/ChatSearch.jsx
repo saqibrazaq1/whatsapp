@@ -30,7 +30,7 @@ const ChatSearch = () => {
           backgroundColor: "#202c33",
         }}
       >
-        <SearchIcon sx={{ color: "#aebac1" }} />
+        <SearchIcon sx={{ color: "#aebac1", cursor: "pointer" }} />
 
         <Box
           sx={{
@@ -48,7 +48,7 @@ const ChatSearch = () => {
         </Box>
       </Box>
 
-      <FilterListIcon sx={{ color: "#aebac1" }} />
+      <FilterListIcon sx={{ color: "#aebac1", cursor: "pointer" }} />
     </Box>
   );
 };

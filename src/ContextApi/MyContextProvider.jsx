@@ -1,18 +1,25 @@
-// context.js
-import { createContext, useState, useContext } from "react";
+import React, { createContext, useState } from "react";
 
-const ChatContext = createContext();
+export const MyContext = createContext("");
 
-const ChatProvider = ({ children }) => {
-  const [chatVisible, setChatVisible] = useState(false);
-
-  const showChat = () => setChatVisible(true);
+const MyContextProvider = ({ children }) => {
+  const [data, setData] = useState(null);
+  const [showsettings, setshowsettings] = useState(false);
 
   return (
-    <ChatContext.Provider value={{ chatVisible, showChat }}>
-      {children}
-    </ChatContext.Provider>
+    <>
+      <MyContext.Provider
+        value={{
+          data,
+          setData,
+          showsettings,
+          setshowsettings,
+        }}
+      >
+        {children}
+      </MyContext.Provider>
+    </>
   );
 };
 
-export { ChatContext, ChatProvider };
+export default MyContextProvider;

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { createContext, useContext, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -13,13 +13,12 @@ import SmsRoundedIcon from "@mui/icons-material/SmsRounded";
 import AddCommentRoundedIcon from "@mui/icons-material/AddCommentRounded";
 import MoreVertRoundedIcon from "@mui/icons-material/MoreVertRounded";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-// import { ThemeProvider, createTheme } from "@mui/icons-material/styles";
-import PhotoCamera from "@mui/icons-material/PhotoCamera";
-import { purple } from "@mui/material/colors";
-import ChatSearch from "./ChatSearch";
 import Chats from "../Atoms/Chats";
 import Setting from "./Setting";
 import { CssBaseline } from "@mui/material";
+import { MyContext } from "@/ContextApi/MyContextProvider";
+import ChatSearch from "./ChatSearch";
+import index from "@/pages";
 
 const ChatListBar = () => {
   const [isBoxVisible, setIsBoxVisible] = useState(false);
@@ -31,30 +30,20 @@ const ChatListBar = () => {
   return (
     <>
       <CssBaseline />
-      {isBoxVisible && (
-        <Box
-          sx={{
-            position: "absolute",
-            left: "371px",
-            top: "50px",
-            backgroundColor: "#202c33",
-            padding: "10px 10px",
-          }}
-        >
-          <Setting />
-        </Box>
-      )}
+
       <Box
         sx={{
+          height: "96vh",
           flexGrow: 1,
           backgroundColor: "#111b21",
+          borderRight: "1px solid rgba(255, 255, 255, 0.20)",
         }}
       >
         <AppBar
           position="static"
           sx={{
             backgroundColor: "#202c33",
-            height: "47px",
+            height: "60px",
             justifyContent: "center",
             display: "flex",
           }}
@@ -78,8 +67,8 @@ const ChatListBar = () => {
             >
               <AccountCircleIcon
                 sx={{
-                  width: "37px",
-                  height: "37px",
+                  width: "55px",
+                  height: "50px",
                 }}
               />
             </Box>
@@ -94,15 +83,52 @@ const ChatListBar = () => {
                 justifyContent: "end",
               }}
             >
-              <GroupSharpIcon sx={{ margin: "0 10px", color: "#aebac1" }} />
-              <DataUsageSharpIcon sx={{ margin: "0 10px", color: "#aebac1" }} />
-              <SmsRoundedIcon sx={{ margin: "0 10px", color: "#aebac1" }} />
-              <AddCommentRoundedIcon
-                sx={{ margin: "0 10px", color: "#aebac1" }}
+              <GroupSharpIcon
+                sx={{
+                  margin: "0 15px",
+                  color: "#aebac1",
+                  width: "24px",
+                  height: "24px",
+                  cursor: "pointer",
+                }}
               />
-              <MoreVertRoundedIcon
+              <DataUsageSharpIcon
+                sx={{
+                  margin: "0 15px",
+                  color: "#aebac1",
+                  width: "24px",
+                  height: "24px",
+                  cursor: "pointer",
+                }}
+              />
+              <SmsRoundedIcon
+                sx={{
+                  margin: "0 15px",
+                  color: "#aebac1",
+                  width: "24px",
+                  height: "24px",
+                  cursor: "pointer",
+                }}
+              />
+              <AddCommentRoundedIcon
+                sx={{
+                  margin: "0 15px",
+                  color: "#aebac1",
+                  width: "24px",
+                  height: "24px",
+                  cursor: "pointer",
+                }}
+              />
+              <Setting
                 onClick={toggleBoxVisibility}
-                sx={{ margin: "0 10px", color: "#aebac1" }}
+                sx={{
+                  margin: "0 5px",
+                  // backgroundColor: "red",
+                  color: "#aebac1",
+                  width: "24px",
+                  height: "24px",
+                  cursor: "pointer",
+                }}
               />
             </Box>
           </Toolbar>
@@ -110,6 +136,7 @@ const ChatListBar = () => {
         <Box
           sx={{
             height: "35px",
+            marginBottom: "1px",
           }}
         >
           <ChatSearch />
@@ -117,13 +144,12 @@ const ChatListBar = () => {
         <Box
           sx={{
             display: "flex",
-            justifyContent: "center",
             alignItems: "center",
             flexDirection: "column",
-            maxHeight: "86vh",
-            overflowY: "scroll",
+            height: "86vh",
+            overflow: "auto",
             scrollbarWidth: "thin",
-            scrollbarColor: "#bdbdbd #f5f5f5",
+            scrollbarColor: " #aebac1 ",
             "&:hover": {
               opacity: 1,
             },
@@ -136,25 +162,14 @@ const ChatListBar = () => {
             "&::-webkit-scrollbar-thumb:hover": {
               backgroundColor: "#aebac1",
             },
-            "&::-webkit-scrollbar-track": {
-              backgroundColor: "#202c33",
-            },
           }}
         >
-          <Chats />
-          <Chats />
-          <Chats />
-          <Chats />
-          <Chats />
-          <Chats />
-          <Chats />
-          <Chats />
-          <Chats />
-          <Chats />
-          <Chats />
-          <Chats />
-          <Chats />
-          <Chats />
+          {[
+            1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            1, 1, 1, 1,
+          ].map((item, index) => (
+            <Chats key={index} />
+          ))}
         </Box>
       </Box>
     </>

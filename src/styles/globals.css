@@ -107,11 +107,11 @@ body {
   outline: none;
   border: none;
 }
-.whastapp-img {
+.whatsapp-img {
   background-size: cover;
-  width: 100%;
-  height: 83.8vh;
-  position: static;
+  width: 60.4%;
+  height: 85vh;
+  position: fixed;
 }
 
 /* chat input */
@@ -132,5 +132,26 @@ body {
 }
 
 .cnehsrcbne {
-  color: rgba(255, 255, 255, 0.199);
+  color: rgba(255, 255, 255, 0.274);
+}
+
+/* signup-inputs */
+
+.signup-inputs {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+}
+.signup-inputs input {
+  width: 90%;
+  padding: 10px 5px;
+  margin: 5px auto;
+  border: none;
+  border-radius: 4px;
+  background-color: #0c1317;
+  color: white;
+  font-size: 14px;
+}
+.signup-inputs input:focus {
+  outline: none;
 }
