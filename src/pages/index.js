@@ -1,15 +1,12 @@
 import React from "react";
-import Structure from "@/Components/Molecules/Structure";
-import MyContextProvider from "@/ContextApi/MyContextProvider";
+import SignIn from "@/Components/Molecules/SignIn";
 
-const index = () => {
+const home = () => {
   return (
     <>
-      <MyContextProvider>
-        <Structure />
-      </MyContextProvider>
+      <SignIn />
     </>
   );
 };
 
-export default index;
+export default home;

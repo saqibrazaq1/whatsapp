@@ -11,10 +11,12 @@ import React from "react";
 import MoreVertRoundedIcon from "@mui/icons-material/MoreVertRounded";
 import { useContext } from "react";
 import { MyContext } from "@/ContextApi/MyContextProvider";
+import { useRouter } from "next/router";
 
 const Setting = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const router = useRouter();
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -24,6 +26,11 @@ const Setting = () => {
   const { setshowsettings } = useContext(MyContext);
   const openSettings = () => {
     setshowsettings(true);
+  };
+
+  const handleChange = (e) => {
+    console.log("working");
+    router.push("/");
   };
 
   // const handleOpen = () => {
@@ -70,7 +77,9 @@ const Setting = () => {
         <MenuItem>Starred Messages</MenuItem>
         <MenuItem>Select chats</MenuItem>
         <MenuItem onClick={openSettings}>Settings</MenuItem>
-        <MenuItem>Log Out</MenuItem>
+        <Box onClick={handleChange}>
+          <MenuItem>Log Out</MenuItem>
+        </Box>
       </Menu>
     </>
   );

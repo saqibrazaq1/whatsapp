@@ -1,5 +1,12 @@
 import React from "react";
-import { Box, Typography, Toolbar, AppBar, Avatar } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Toolbar,
+  AppBar,
+  Avatar,
+  Button,
+} from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ChatSearch from "../Atoms/ChatSearch";
 import PopBarIcons from "./PopBarIcons";
@@ -7,9 +14,7 @@ import PersonAdd from "@mui/icons-material";
 import { useContext } from "react";
 import { MyContext } from "@/ContextApi/MyContextProvider";
 import { useRouter } from "next/router";
-import SignIn from "../Molecules/SignIn";
-import Signup from "../Molecules/SignUp";
-
+// const router = useRouter();
 const Sidepopbar = () => {
   const { setshowsettings } = useContext(MyContext);
   const router = useRouter();
@@ -21,8 +26,8 @@ const Sidepopbar = () => {
   };
 
   const handleChange = (e) => {
-    e.preventDefault();
-    router.push("/Signin");
+    console.log("working");
+    router.push("/");
   };
   return (
     <>
@@ -112,7 +117,7 @@ const Sidepopbar = () => {
             </Box>
           </Box>
           <Box sx={{ "&:last-child": { color: "red" } }}>
-            <PopBarIcons icons={PersonAdd} text={"Notifications"} />
+            <PopBarIcons icons={ArrowBackIcon} text={"Notifications"} />
             <PopBarIcons icons={PersonAdd} text={"Privacy"} />
             <PopBarIcons icons={PersonAdd} text={"Securtiy"} />
             <PopBarIcons icons={PersonAdd} text={"Theme"} />
@@ -121,12 +126,13 @@ const Sidepopbar = () => {
             <PopBarIcons icons={PersonAdd} text={"Request account info"} />
             <PopBarIcons icons={PersonAdd} text={"Keyboard shortcuts"} />
             <PopBarIcons icons={PersonAdd} text={"Help"} />
-            <PopBarIcons
-              onClick={handleChange}
-              icons={PersonAdd}
-              text={"Log Out"}
-              sx={{ color: "red" }}
-            />
+            <Box onClick={handleChange} sx={{ width: "100%" }}>
+              <PopBarIcons
+                icons={PersonAdd}
+                text={"Log Out"}
+                sx={{ color: "red" }}
+              />
+            </Box>
           </Box>
         </Box>
       </Box>

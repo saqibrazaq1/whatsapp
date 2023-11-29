@@ -150,7 +150,7 @@ const SignUp = () => {
       </Button>
       <Box>
         <Typography variant="p"> Dont have an account?</Typography>
-        <Link href={"/login"}>
+        <Link href={"/"}>
           <Button variant="contained" color="primary" fullWidth>
             Signin
           </Button>

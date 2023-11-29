@@ -16,7 +16,7 @@ const SignIn = () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       // console.log('Authenticated');
-      router.push("/");
+      router.push("/mainpage");
     } catch (error) {
       alert(error);
     }
