@@ -1,0 +1,5 @@
+/** @format */
+
+.transition-box {
+  transition: transform 0.5s ease; /* You can adjust the duration and easing function */
+}

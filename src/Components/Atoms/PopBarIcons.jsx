@@ -1,3 +1,5 @@
+/** @format */
+
 import { PersonAdd } from "@mui/icons-material";
 import { Box, ListItemIcon, MenuItem, Typography } from "@mui/material";
 import React from "react";
@@ -6,7 +8,7 @@ const PopBarIcons = ({ icon, text }) => {
   return (
     <Box
       sx={{
-        height: "60px",
+        height: "63px",
         color: "white",
         "&:hover": {
           background: "rgba(255, 255, 255, 0.10)",
@@ -43,6 +45,9 @@ const PopBarIcons = ({ icon, text }) => {
             width: "100%",
             flexGrow: "1",
             marginLeft: "15px",
+            "&:hover": {
+              border: "none",
+            },
           }}
         >
           {text}

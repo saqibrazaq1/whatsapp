@@ -1,30 +1,30 @@
+/** @format */
+
 import * as React from "react";
 import { createContext, useContext, useState } from "react";
-import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
+import AppBar from "@mui/material/AppBar";
 import GroupSharpIcon from "@mui/icons-material/GroupSharp";
 import DataUsageSharpIcon from "@mui/icons-material/DataUsageSharp";
+import { getLoggedUser } from "@/ContextApi/GetLoggedUser";
 import SmsRoundedIcon from "@mui/icons-material/SmsRounded";
+import { Avatar, CssBaseline } from "@mui/material";
 import AddCommentRoundedIcon from "@mui/icons-material/AddCommentRounded";
-import MoreVertRoundedIcon from "@mui/icons-material/MoreVertRounded";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Chats from "../Atoms/Chats";
 import Setting from "./Setting";
-import { CssBaseline } from "@mui/material";
-import { MyContext } from "@/ContextApi/MyContextProvider";
 import ChatSearch from "./ChatSearch";
-import index from "@/pages";
-
+import { MyContext } from "@/ContextApi/MyContextProvider";
 const ChatListBar = () => {
-  const [isBoxVisible, setIsBoxVisible] = useState(false);
+  const { user } = useContext(getLoggedUser);
+
+  const { setShowUser, setshowsettings } = useContext(MyContext);
 
   const toggleBoxVisibility = () => {
-    setIsBoxVisible((prevValue) => !prevValue);
+    setshowsettings(true);
+  };
+  const toggleUsers = () => {
+    setShowUser(true);
   };
 
   return (
@@ -40,7 +40,7 @@ const ChatListBar = () => {
         }}
       >
         <AppBar
-          position="static"
+          position='static'
           sx={{
             backgroundColor: "#202c33",
             height: "60px",
@@ -56,22 +56,27 @@ const ChatListBar = () => {
               justifyItems: "center",
             }}
           >
-            <Box
-              className="profile-icon"
-              sx={{
-                width: "20%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <AccountCircleIcon
+            <Box sx={{ marginLeft: "10px" }}>
+              <label
+                htmlFor='avatar-input'
                 sx={{
-                  width: "55px",
-                  height: "50px",
+                  bgcolor: "red",
+                  display: "flex",
+                  cursor: "pointer",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: "red",
+                  width: "100%",
                 }}
-              />
+              >
+                <Avatar
+                  src={user?.proImgLink}
+                  alt='userProImg'
+                  sx={{ width: 50, height: 50 }}
+                />
+              </label>
             </Box>
+
             <Box
               sx={{
                 display: "flex",
@@ -111,6 +116,7 @@ const ChatListBar = () => {
                 }}
               />
               <AddCommentRoundedIcon
+                onClick={toggleUsers}
                 sx={{
                   margin: "0 15px",
                   color: "#aebac1",

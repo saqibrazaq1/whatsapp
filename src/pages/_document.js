@@ -4,7 +4,8 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head />
-      <title>Whatsapp Web </title>
+      <title>Whatsapp Web</title>
+
       <body>
         <Main />
         <NextScript />

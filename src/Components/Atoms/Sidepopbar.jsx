@@ -1,3 +1,5 @@
+/** @format */
+
 import React from "react";
 import {
   Box,
@@ -6,6 +8,7 @@ import {
   AppBar,
   Avatar,
   Button,
+  label,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ChatSearch from "../Atoms/ChatSearch";
@@ -14,13 +17,16 @@ import PersonAdd from "@mui/icons-material";
 import { useContext } from "react";
 import { MyContext } from "@/ContextApi/MyContextProvider";
 import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
+// import { ref, uploadBytes, getDownloadURL, storage } from "firebase/storage";
+import ProfileSideBarBox from "./profilebar";
+import { getLoggedUser } from "@/ContextApi/GetLoggedUser";
 // const router = useRouter();
 const Sidepopbar = () => {
+  const { user } = useContext(getLoggedUser);
   const { setshowsettings } = useContext(MyContext);
   const router = useRouter();
-  // const openSettings = () => {
-  //   setshowsettings(true);
-  // };
+
   const closesidebar = () => {
     setshowsettings(false);
   };
@@ -29,6 +35,9 @@ const Sidepopbar = () => {
     console.log("working");
     router.push("/");
   };
+
+  // /// /////       uploading image  /////////
+
   return (
     <>
       <Box
@@ -74,7 +83,7 @@ const Sidepopbar = () => {
                 sx={{ cursor: "pointer" }}
                 onClick={closesidebar}
               />
-              <Typography sx={{ marginLeft: "20px" }} variant="p">
+              <Typography sx={{ marginLeft: "20px" }} variant='p'>
                 Settings
               </Typography>
             </Toolbar>
@@ -86,52 +95,27 @@ const Sidepopbar = () => {
           >
             <ChatSearch />
           </Box>
-          <Box
-            sx={{
-              display: "grid",
-              gridTemplateColumns: "1fr 11fr",
-              alignItems: "center",
-              margin: "10px 15px",
-              justifyContent: "center",
-              // backgroundColor: "red",
-            }}
-          >
-            <Avatar
-              src="profile.jpg"
-              sx={{ height: "75px", width: "75px" }}
-            ></Avatar>
-            <Box
-              sx={{
-                display: "grid",
-                gridTemplateRows: "1fr 1fr",
-                marginLeft: "20px",
-                color: "white",
-              }}
-            >
-              <Typography sx={{ fontSize: "11px" }} variant="p">
-                Saqib Razaq
-              </Typography>
-              <Typography sx={{ fontSize: "9px" }} variant="p">
-                Codependent{" "}
-              </Typography>
-            </Box>
+          <Box>
+            <ProfileSideBarBox />
           </Box>
-          <Box sx={{ "&:last-child": { color: "red" } }}>
-            <PopBarIcons icons={ArrowBackIcon} text={"Notifications"} />
-            <PopBarIcons icons={PersonAdd} text={"Privacy"} />
-            <PopBarIcons icons={PersonAdd} text={"Securtiy"} />
-            <PopBarIcons icons={PersonAdd} text={"Theme"} />
-            <PopBarIcons icons={PersonAdd} text={"Chat Wallpaper"} />
-            <PopBarIcons icons={PersonAdd} text={"Media auto-download"} />
-            <PopBarIcons icons={PersonAdd} text={"Request account info"} />
-            <PopBarIcons icons={PersonAdd} text={"Keyboard shortcuts"} />
-            <PopBarIcons icons={PersonAdd} text={"Help"} />
-            <Box onClick={handleChange} sx={{ width: "100%" }}>
-              <PopBarIcons
-                icons={PersonAdd}
-                text={"Log Out"}
-                sx={{ color: "red" }}
-              />
+          <Box>
+            <Box>
+              <PopBarIcons icons={ArrowBackIcon} text={"Notifications"} />
+              <PopBarIcons icons={PersonAdd} text={"Privacy"} />
+              <PopBarIcons icons={PersonAdd} text={"Securtiy"} />
+              <PopBarIcons icons={PersonAdd} text={"Theme"} />
+              <PopBarIcons icons={PersonAdd} text={"Chat Wallpaper"} />
+              <PopBarIcons icons={PersonAdd} text={"Media auto-download"} />
+              <PopBarIcons icons={PersonAdd} text={"Request account info"} />
+              <PopBarIcons icons={PersonAdd} text={"Keyboard shortcuts"} />
+              <PopBarIcons icons={PersonAdd} text={"Help"} />
+              <Box onClick={handleChange} sx={{ width: "100%" }}>
+                <PopBarIcons
+                  icons={PersonAdd}
+                  text={"Log Out"}
+                  style={{ color: "red" }}
+                />
+              </Box>
             </Box>
           </Box>
         </Box>
@@ -139,5 +123,4 @@ const Sidepopbar = () => {
     </>
   );
 };
-
 export default Sidepopbar;

@@ -32,10 +32,7 @@ const Chats = () => {
     >
       <CssBaseline />
       <Box sx={{ height: "60px" }}>
-        <Avatar
-          src="/profile.JPG"
-          sx={{ width: "50px", height: "50px" }}
-        ></Avatar>
+        <Avatar sx={{ width: "50px", height: "50px" }}></Avatar>
       </Box>
       <Box sx={{ borderBottom: "0.1px solid rgb(119, 114, 114)" }}>
         <Box
