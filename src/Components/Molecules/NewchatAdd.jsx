@@ -1,3 +1,5 @@
+/** @format */
+
 import { AppBar, Avatar, Box, Toolbar, Typography } from "@mui/material";
 import React from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -5,8 +7,10 @@ import ChatSearch from "../Atoms/ChatSearch";
 
 import { useContext } from "react";
 import { MyContext } from "@/ContextApi/MyContextProvider";
+import { AddedUsers } from "@/ContextApi/AddedUsers";
 
 const NewchatAdd = () => {
+  const { addedUsers } = useContext(AddedUsers);
   return (
     <Box
       sx={{
@@ -26,7 +30,7 @@ const NewchatAdd = () => {
       >
         <Toolbar sx={{ color: "white" }}>
           <ArrowBackIcon sx={{ cursor: "pointer" }} />
-          <Typography sx={{ marginLeft: "20px" }} variant="p">
+          <Typography sx={{ marginLeft: "20px" }} variant='p'>
             new chat
           </Typography>
         </Toolbar>
@@ -57,7 +61,7 @@ const NewchatAdd = () => {
             color: "white",
           }}
         >
-          <Typography sx={{ fontSize: "11px" }} variant="p">
+          <Typography sx={{ fontSize: "11px" }} variant='p'>
             New Group
           </Typography>
         </Box>

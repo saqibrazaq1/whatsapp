@@ -15,8 +15,10 @@ import Chats from "../Atoms/Chats";
 import Setting from "./Setting";
 import ChatSearch from "./ChatSearch";
 import { MyContext } from "@/ContextApi/MyContextProvider";
+import { GetAddedUsers } from "@/ContextApi/AddedUsers";
 const ChatListBar = () => {
   const { user } = useContext(getLoggedUser);
+  const { currentChatUser, setCurrentChatUser } = useContext(GetAddedUsers);
 
   const { setShowUser, setshowsettings } = useContext(MyContext);
 
@@ -25,6 +27,7 @@ const ChatListBar = () => {
   };
   const toggleUsers = () => {
     setShowUser(true);
+    setCurrentChatUser();
   };
 
   return (
@@ -170,12 +173,7 @@ const ChatListBar = () => {
             },
           }}
         >
-          {[
-            1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-            1, 1, 1, 1,
-          ].map((item, index) => (
-            <Chats key={index} />
-          ))}
+          <Chats />
         </Box>
       </Box>
     </>

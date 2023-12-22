@@ -1,3 +1,5 @@
+/** @format */
+
 import React from "react";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import SearchIcon from "@mui/icons-material/Search";
@@ -10,20 +12,25 @@ import {
   IconButton,
   Menu,
   MenuItem,
+  Avatar,
 } from "@mui/material";
+import { useContext } from "react";
+import { GetAddedUsers } from "@/ContextApi/AddedUsers";
 
 const Webchatsbar = () => {
+  const { currentChatUser } = useContext(GetAddedUsers);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
+    currentChatUser();
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
   return (
     <AppBar
-      position="static"
+      position='static'
       sx={{
         backgroundColor: "#202c33",
         height: "60px",
@@ -46,18 +53,19 @@ const Webchatsbar = () => {
             justifyContent: "space-between",
           }}
         >
-          <AccountCircleIcon
+          {/* <AccountCircleIcon
             sx={{
               width: "45px",
               height: "45px",
             }}
-          />
+          /> */}
+          <Avatar src={currentChatUser.proImgLink} />
 
           <Typography
-            variant="h6"
+            variant='h6'
             sx={{ marginLeft: "10px", cursor: "pointer" }}
           >
-            User
+            {currentChatUser.name}
           </Typography>
         </Box>
         <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -73,9 +81,9 @@ const Webchatsbar = () => {
           <Box>
             <IconButton
               sx={{ width: "0", color: "#aebac1", marginLeft: "15px" }}
-              id="demo-positioned-button"
+              id='demo-positioned-button'
               aria-controls={open ? "demo-positioned-menu" : undefined}
-              aria-haspopup="true"
+              aria-haspopup='true'
               aria-expanded={open ? "true" : undefined}
               onClick={handleClick}
             >
@@ -97,8 +105,8 @@ const Webchatsbar = () => {
                 color: "#aebac1",
                 cursor: "pointer",
               }}
-              id="demo-positioned-menu"
-              aria-labelledby="demo-positioned-button"
+              id='demo-positioned-menu'
+              aria-labelledby='demo-positioned-button'
               anchorEl={anchorEl}
               open={open}
               onClose={handleClose}

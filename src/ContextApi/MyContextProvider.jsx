@@ -8,6 +8,7 @@ const MyContextProvider = ({ children }) => {
   const [data, setData] = useState(null);
   const [showsettings, setshowsettings] = useState(false);
   const [ShowUser, setShowUser] = useState(false);
+  const [openProfile, setOpenProfile] = useState(false);
 
   return (
     <>
@@ -19,6 +20,8 @@ const MyContextProvider = ({ children }) => {
           setshowsettings,
           ShowUser,
           setShowUser,
+          openProfile,
+          setOpenProfile,
         }}
       >
         {children}

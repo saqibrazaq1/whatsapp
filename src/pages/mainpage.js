@@ -5,15 +5,21 @@ import React from "react";
 import Structure from "@/Components/Molecules/Structure";
 import MyContextProvider from "@/ContextApi/MyContextProvider";
 import LoggedUserProvider from "@/ContextApi/GetLoggedUser";
+import AddedUsers from "@/ContextApi/AddedUsers";
+import GetRegUsersProvider from "@/ContextApi/GetRegUsers";
 
 const mainpage = () => {
   return (
     <>
-      <MyContextProvider>
-        <LoggedUserProvider>
-          <Structure />
-        </LoggedUserProvider>
-      </MyContextProvider>
+      <GetRegUsersProvider>
+        <MyContextProvider>
+          <AddedUsers>
+            <LoggedUserProvider>
+              <Structure />
+            </LoggedUserProvider>
+          </AddedUsers>
+        </MyContextProvider>
+      </GetRegUsersProvider>
     </>
   );
 };

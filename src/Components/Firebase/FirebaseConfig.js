@@ -1,3 +1,5 @@
+/** @format */
+
 import { initializeApp } from "firebase/app";
 import firebaseConfig from "./FirebaseInit";
 
@@ -8,6 +10,7 @@ import {
   doc,
   setDoc,
   onSnapshot,
+  query,
 } from "firebase/firestore";
 import {
   getAuth,
@@ -39,4 +42,5 @@ export {
   ref,
   uploadBytes,
   getDownloadURL,
+  query,
 };
