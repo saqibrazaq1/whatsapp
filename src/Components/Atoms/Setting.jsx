@@ -1,3 +1,5 @@
+/** @format */
+
 import {
   Box,
   Typography,
@@ -12,6 +14,7 @@ import MoreVertRoundedIcon from "@mui/icons-material/MoreVertRounded";
 import { useContext } from "react";
 import { MyContext } from "@/ContextApi/MyContextProvider";
 import { useRouter } from "next/router";
+import { Auth, signOut } from "firebase/auth";
 
 const Setting = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -28,22 +31,23 @@ const Setting = () => {
     setshowsettings(true);
   };
 
-  const handleChange = (e) => {
-    console.log("working");
-    router.push("/");
+  const handleSignOut = async () => {
+    try {
+      await firebase.auth().signOut();
+      console.log("User signed out successfully");
+      // Additional logic or redirection if needed
+    } catch (error) {
+      console.error("Error signing out:", error);
+      // Handle the error (e.g., display an alert)
+    }
   };
-
-  // const handleOpen = () => {
-  //   setshowsettings("Hello");
-  //   // console.log("hello");
-  // };
   return (
     <>
       <IconButton
         sx={{ width: "0", color: "#aebac1" }}
-        id="demo-positioned-button"
+        id='demo-positioned-button'
         aria-controls={open ? "demo-positioned-menu" : undefined}
-        aria-haspopup="true"
+        aria-haspopup='true'
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
       >
@@ -58,8 +62,8 @@ const Setting = () => {
           color: "#aebac1",
           cursor: "pointer",
         }}
-        id="demo-positioned-menu"
-        aria-labelledby="demo-positioned-button"
+        id='demo-positioned-menu'
+        aria-labelledby='demo-positioned-button'
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
@@ -77,7 +81,7 @@ const Setting = () => {
         <MenuItem>Starred Messages</MenuItem>
         <MenuItem>Select chats</MenuItem>
         <MenuItem onClick={openSettings}>Settings</MenuItem>
-        <Box onClick={handleChange}>
+        <Box onClick={handleSignOut}>
           <MenuItem>Log Out</MenuItem>
         </Box>
       </Menu>

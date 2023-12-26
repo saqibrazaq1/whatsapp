@@ -28,9 +28,9 @@ import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import PersonIcon from "@mui/icons-material/Person";
 import PollIcon from "@mui/icons-material/Poll";
 import LabelIcon from "@mui/icons-material/Label";
-import { pink, purple, yellow } from "@mui/material/colors";
 import { getLoggedUser } from "@/ContextApi/GetLoggedUser";
 import { GetAddedUsers } from "@/ContextApi/AddedUsers";
+import { pink, purple, yellow } from "@mui/material/colors";
 import {
   doc,
   addDoc,
@@ -41,6 +41,8 @@ import {
   deleteDoc,
   onSnapshot,
 } from "../Firebase/FirebaseConfig";
+import InputFileUpload from "../Molecules/Inputs";
+import { Download } from "@mui/icons-material";
 
 const Message = ({ message, userId, onDelete }) => {
   const isSentByMe = message.senderId === userId;
@@ -49,12 +51,12 @@ const Message = ({ message, userId, onDelete }) => {
     borderRadius: isSentByMe ? "16px 0px 16px 16px" : "0px 16px 16px 16px",
     padding: "6px 12px 6px 8px",
     marginBottom: "20px",
-    bgcolor: isSentByMe ? "#00a884" : "#f5f7fa",
+    bgcolor: isSentByMe ? "#00a884" : "#202c33",
     maxWidth: "300px",
     width: "fit-content",
     position: "relative",
     top: "10px",
-    left: isSentByMe ? "85%;" : "12px",
+    left: isSentByMe ? "90%" : "12px",
   };
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -65,48 +67,115 @@ const Message = ({ message, userId, onDelete }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const downloadFile = () => {
+    console.log("Downloaded");
+    {
+      message.filesObj.fileDownloadLink;
+    }
+  };
 
   return (
-    <Box style={{ bgcolor: "red" }} sx={messageStyle}>
-      <Typography variant='h3' sx={{ fontSize: "14px", color: "black" }}>
-        {message.messageText}
-        <IconButton
-          id='basic-button'
-          aria-controls={open ? "basic-menu" : undefined}
-          aria-haspopup='true'
-          aria-expanded={open ? "true" : undefined}
-          onClick={handleClick}
-        >
-          <MoreVertOutlinedIcon sx={{ fontSize: "12px" }} />
-        </IconButton>
-      </Typography>
-      <Box
-        sx={{
-          marginTop: "8px",
-          display: "flex",
-          justifyContent: "space-between",
-        }}
-      >
-        <Menu
-          id='basic-menu'
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          onClick={handleClose}
-          MenuListProps={{
-            "aria-labelledby": "basic-button",
+    <Box
+      sx={{
+        width: "100%",
+        padding: "8px 10px 8px 10px",
+        display: "grid",
+      }}
+    >
+      <Box sx={messageStyle}>
+        <Typography
+          variant='h6'
+          sx={{
+            fontSize: "14px",
+            position: "relative",
+            padding: "10px 4px 0px 10px",
           }}
         >
-          <MenuItem
-            sx={{ color: "white", bgcolor: "#00a884" }}
-            onClick={() => onDelete(message.msgDocId)}
+          {message.filesObj && (
+            <Box
+              sx={{
+                width: "300px",
+                height: "192px",
+              }}
+            >
+              <Box sx={{ width: "260px", height: "124px" }}>
+                <Avatar
+                  src={message.filesObj.fileDownloadLink}
+                  sx={{ width: "100%", height: "100%" }}
+                  variant='square'
+                />
+                {/* <Box
+                component='img'
+                sx={{
+                  height: 233,
+                  width: 350,
+                  maxHeight: { xs: 233, md: 167 },
+                  maxWidth: { xs: 350, md: 250 },
+                }}
+                alt='The house from the offer.'
+              src={message.filesObj.fileDownloadLink}
+              /> */}
+              </Box>
+              <Box sx={{ bgcolor: "pink", flexGrow: 1, width: "260px" }}>
+                <Typography
+                  variant='h3'
+                  sx={{ fontSize: "16px", color: "#333" }}
+                >
+                  {message.filesObj.fileName}
+                </Typography>
+                <Box sx={{ display: "flex" }}>
+                  <Download onClick={downloadFile} />
+                  <Typography
+                    variant='h6'
+                    sx={{ fontSize: "12px", color: "#333" }}
+                  >
+                    {message.filesObj.fileType}
+                  </Typography>
+                  {/* <Typography
+                variant='h6'
+                sx={{ fontSize: '12px', color: '#333' }}
+              >
+                {message.filesObj.fileSize}
+              </Typography> */}
+                </Box>
+              </Box>
+            </Box>
+          )}
+          {message.messageText}
+          <IconButton
+            id='basic-button'
+            aria-controls={open ? "basic-menu" : undefined}
+            aria-haspopup='true'
+            aria-expanded={open ? "true" : undefined}
+            onClick={handleClick}
+            sx={{ position: "absolute", right: "0px" }}
           >
-            Delete Msg
-          </MenuItem>
-          <MenuItem sx={{ color: "white", bgcolor: "#00a884" }}>
-            Edit Msg
-          </MenuItem>
-        </Menu>
+            <MoreVertOutlinedIcon sx={{ color: "#fff", fontSize: "11px" }} />
+          </IconButton>
+        </Typography>
+        <Box
+          sx={{
+            marginTop: "6px",
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <Menu
+            id='basic-menu'
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            onClick={handleClose}
+            MenuListProps={{
+              "aria-labelledby": "basic-button",
+            }}
+          >
+            <MenuItem onClick={() => onDelete(message.msgDocId)}>
+              Delete Msg
+            </MenuItem>
+            <MenuItem>Edit Msg</MenuItem>
+          </Menu>
+        </Box>
       </Box>
     </Box>
   );
@@ -125,7 +194,7 @@ const WebChats = () => {
     try {
       onSnapshot(
         query(
-          collection(db, chats, "chats"),
+          collection(db, "chats"),
           where("senderId", "in", [user.userId, currentChatUser.id]),
           where("receiverId", "in", [user.userId, currentChatUser.id])
         ),
@@ -157,7 +226,6 @@ const WebChats = () => {
       messageText: message,
       date: Date.now(),
     };
-    console.log(chat);
 
     try {
       const collectionRef = collection(db, "chats");
@@ -195,11 +263,12 @@ const WebChats = () => {
     setCurrentChatUser(null);
   };
   useEffect(() => {
-    if (currentChatUser.uid) {
-      getChatmessages();
-    }
-  }, [currentChatUser.uid]);
+    getChatmessages();
+  }, [currentChatUser?.id]);
 
+  const handleMenuItemClick = () => {
+    console.log("hello");
+  };
   const chatbg =
     "https://i.pinimg.com/564x/ae/aa/07/aeaa0746d1061c3a4a958088cd77ccf9.jpg";
   return (
@@ -218,9 +287,9 @@ const WebChats = () => {
           }}
         >
           <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
-            <Avatar alt='User' src={currentChatUser.proImgLink} />
+            <Avatar alt='User' src={currentChatUser?.proImgLink} />
             <Box sx={{ fontSize: "14px", color: "#fff" }}>
-              <Typography variant='h6'>{currentChatUser.name}</Typography>
+              <Typography variant='h6'>{currentChatUser?.name}</Typography>
               <Typography variant='p'>
                 <small>Last seen today at 13:08</small>
               </Typography>
@@ -355,9 +424,10 @@ const WebChats = () => {
           <Menu
             sx={{
               ".css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper": {
+                bgcolor: "#233138",
                 borderRadius: " 16px",
                 bottom: "75px !important",
-                left: "480px !important",
+                left: "650px !important",
                 top: "unset !important",
               },
             }}
@@ -371,40 +441,77 @@ const WebChats = () => {
             }}
           >
             <MenuItem className='moreIcon-sub' onClick={handleClose}>
-              <ListItemIcon>
-                <DescriptionIcon color='secondary' />
-              </ListItemIcon>
-              Document
+              <InputFileUpload
+                text='Document'
+                icon={
+                  <ListItemIcon>
+                    <DescriptionIcon color='secondary' />
+                  </ListItemIcon>
+                }
+                onClick={handleMenuItemClick}
+                fileType='file'
+              />
             </MenuItem>
             <MenuItem className='moreIcon-sub' onClick={handleClose}>
-              <ListItemIcon>
-                <PhotoLibraryIcon color='success' />
-              </ListItemIcon>
-              Photos & Videos
+              <InputFileUpload
+                text='Photos & Videos'
+                icon={
+                  <ListItemIcon>
+                    <PhotoLibraryIcon color='success' />
+                  </ListItemIcon>
+                }
+                onClick={handleMenuItemClick}
+                fileType='file'
+                accept='image/*'
+              />
             </MenuItem>
             <MenuItem className='moreIcon-sub' onClick={handleClose}>
-              <ListItemIcon>
-                <CameraAltIcon sx={{ color: pink[500] }} />
-              </ListItemIcon>
-              Photos & Videos
+              <InputFileUpload
+                text='Photos & Videos'
+                icon={
+                  <ListItemIcon>
+                    <CameraAltIcon sx={{ color: pink[500] }} />
+                  </ListItemIcon>
+                }
+                onClick={handleMenuItemClick}
+                fileType='video/*'
+              />
             </MenuItem>
             <MenuItem className='moreIcon-sub' onClick={handleClose}>
-              <ListItemIcon>
-                <PersonIcon sx={{ color: purple[500] }} />
-              </ListItemIcon>
-              Contact
+              <InputFileUpload
+                text='Contact'
+                icon={
+                  <ListItemIcon>
+                    <PersonIcon sx={{ color: purple[500] }} />
+                  </ListItemIcon>
+                }
+                onClick={handleMenuItemClick}
+                fileType='text/vcard'
+              />
             </MenuItem>
             <MenuItem className='moreIcon-sub' onClick={handleClose}>
-              <ListItemIcon>
-                <PollIcon sx={{ color: yellow[500] }} />
-              </ListItemIcon>
-              Poll
+              <InputFileUpload
+                text='Poll'
+                icon={
+                  <ListItemIcon>
+                    <PollIcon sx={{ color: yellow[500] }} />
+                  </ListItemIcon>
+                }
+                onClick={handleMenuItemClick}
+                fileType='application/json'
+              />
             </MenuItem>
             <MenuItem className='moreIcon-sub' onClick={handleClose}>
-              <ListItemIcon>
-                <LabelIcon color='primary' />
-              </ListItemIcon>
-              Label
+              <InputFileUpload
+                text='Label'
+                icon={
+                  <ListItemIcon>
+                    <LabelIcon color='primary' />
+                  </ListItemIcon>
+                }
+                onClick={handleMenuItemClick}
+                fileType='text/plain'
+              />
             </MenuItem>
           </Menu>
 

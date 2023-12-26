@@ -11,6 +11,7 @@ import {
   setDoc,
   onSnapshot,
   query,
+  where,
 } from "firebase/firestore";
 import {
   getAuth,
@@ -43,4 +44,5 @@ export {
   uploadBytes,
   getDownloadURL,
   query,
+  where,
 };
